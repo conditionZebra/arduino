@@ -13,22 +13,23 @@ class ButtonHandler
 
         enum pressTypes {   NOT_PRESSED = 0,
                             SINGLE_PRESS,
-                            DOUBE_PRESS,
+                            DOUBLE_PRESS,
                             LONG_PRESS
         };
 
     private :
         int buttonPin;
-        int flickeringTime;
         long lastPressed;
-        long lastReleased;
-        long longPressDuration;
+        bool longPressed;
+        long waitForDubleTimerStart;
         long currentTime;
         int state;
         int buttonVal;
         int pressType;
-        bool longPressed;
-        void setupConstants();
+
+        static const int doublePressGap = 120;
+        static const long longPressDuration = 1000;
+        static const int flickeringTime = 20;
 };
 
 #endif //CSZ_BUTTONHANDLER
