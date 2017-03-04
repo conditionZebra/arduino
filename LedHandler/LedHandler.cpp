@@ -1,16 +1,10 @@
 #include <LedHandler.h>
 
-LedHandler::LedHandler() : ledPin(2), ledState(LOW)
-{
-    pinMode(ledPin,OUTPUT);
-}
+LedHandler::LedHandler() : LedHandler(2,LOW) {}
 
-LedHandler::LedHandler(int pin) : ledPin(pin), ledState(LOW)
-{
-    pinMode(ledPin,OUTPUT);
-}
+LedHandler::LedHandler(int pin) : LedHandler(pin, LOW) {}
 
-LedHandler::LedHandler(int pin, int state) : ledPin(pin), ledState(state)
+LedHandler::LedHandler(int pin, int state) : ledPin(pin), ledState(state), ledIntensity(255)
 {
     pinMode(ledPin,OUTPUT);
 }
@@ -27,5 +21,17 @@ void LedHandler::setState(int state)
 void LedHandler::changeState()
 {
     ledState = !ledState;
-    digitalWrite(ledPin,ledState);
+    if(ledState == HIGH)
+        analogWrite(ledPin,ledIntensity);
+    else
+       digitalWrite(ledPin,ledState); 
+}
+
+void LedHandler::changeIntensity(int newIntensity)
+{
+    if(ledState == HIGH)
+    {
+        ledIntensity = newIntensity;
+        analogWrite(ledPin,newIntensity);
+    }
 }
